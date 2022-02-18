@@ -52,7 +52,7 @@ class CategoriesController extends Controller
             'title' => $request->get('title'),
             'previewDescription' => $request->get('previewDescription'),
             'description' => $request->get('description'),
-            'thumbnailUrl' => $request->get('thumbnailUrl'),
+            'thumbnailUrl' => $url,
             'url' => $url,
         ]);
         $category->save();
