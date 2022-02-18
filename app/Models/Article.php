@@ -21,4 +21,8 @@ class Article extends Model
         'thumbnailUrl',
         'categoryId',
     ];
+
+    public function photos() {
+        return $this->hasMany('App\Models\ArticlePhoto', 'articleId');
+    }
 }

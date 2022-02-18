@@ -22,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::resource('/categories', \App\Http\Controllers\api\CategoriesController::class );
 Route::resource('/articles', \App\Http\Controllers\api\ArticleController::class );
 Route::resource('/orders', \App\Http\Controllers\api\OrderController::class );
+Route::resource('/photos', \App\Http\Controllers\api\ArticlePhotoController::class );
+Route::resource('/notifications', \App\Http\Controllers\api\NotificationSimpleController::class );

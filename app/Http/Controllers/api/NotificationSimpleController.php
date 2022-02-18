@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article;
+use App\Models\Notification;
 use Illuminate\Http\Request;
 
-class ArticleController extends Controller
+class NotificationSimpleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $data = Article::with('photos')->get();
+        $data = Notification::all();
         return response()->json($data);
     }
 
@@ -38,11 +38,9 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'label' => 'required',
-            'price' => 'required',
+            'title' => 'required',
             'description' => 'required',
-            'stock' => 'required',
-            'picture' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            'picture' => 'image|mimes:jpeg,png,jpg,gif,svg',
         ]);
         $url = null;
         if ($request->file()) {
@@ -50,21 +48,13 @@ class ArticleController extends Controller
             $filePath = $request->file('picture')->storeAs( '/', $fileName, 'ftp');
             $url = env('FILE_UPLOAD_PATH', 'http://localhost/') . $filePath;
         }
-        $article = new Article([
-            'label' => $request->get('label'),
+        $notification = new Notification([
+            'title' => $request->get('title'),
             'description' => $request->get('description'),
-            'price' => $request->get('price'),
-            'stock' => $request->get('stock'),
-            'location' => $request->get('location'),
-            'coordinates' => $request->get('coordinates'),
-            'views' => $request->get('views'),
-            'shares' => $request->get('shares'),
-            'measure' => $request->get('measure'),
-            'categoryId' => $request->get('categoryId'),
             'thumbnailUrl' => $url,
         ]);
-        $article->save();
-        return response()->json(['message' => 'saved'], 201);
+        $notification->save();
+        return  response()->json(['message' => 'saved']);
     }
 
     /**
@@ -75,10 +65,7 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        $data = Article::with('photos')
-            ->where('categoryId', $id)
-            ->get();
-        return response()->json($data);
+        //
     }
 
     /**
@@ -112,10 +99,6 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $data = Article::query()->find($id);
-        if ($data) $data->delete();
-        return response()->json([
-            'message' => 'deleted'
-        ]);
+        //
     }
 }

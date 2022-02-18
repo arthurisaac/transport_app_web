@@ -16,7 +16,7 @@ class CreateArticlesTable extends Migration
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
             $table->string("label")->nullable();
-            $table->string("description")->nullable();
+            $table->text("description")->nullable();
             $table->string("price")->default(0);
             $table->boolean("stock")->default(true)->nullable();
             $table->string("location")->nullable();
