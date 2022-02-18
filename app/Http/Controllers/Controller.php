@@ -16,7 +16,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
-    function sendMail($email, $name = "") {
+    function sendMail($email, $name = "Faso Logistique") {
         $config = Configuration::getDefaultConfiguration()
             ->setApiKey('api-key', env('SENDINBLUE_API_KEY'));
         $apiInstance = new TransactionalEmailsApi(
